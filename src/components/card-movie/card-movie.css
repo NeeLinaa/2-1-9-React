@@ -1,0 +1,9 @@
+.cardStyle {
+  box-shadow: 2px 2px 2px rgb(197, 197, 197);
+  max-height: 454px;
+  margin-bottom: 25px;
+}
+
+.overview {
+  margin-bottom: 0;
+}

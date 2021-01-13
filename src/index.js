@@ -1,17 +1,31 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { Row, Col } from 'antd';
+import 'antd/dist/antd.css';
+import CardMovie from './components/card-movie/card-movie';
+import Search from './components/search/search';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+const Index = () => (
+      <div>   
+        <Row align="top" gutter={[16, 24]}>
+          <Col className='gutter-row' span={2} />
+          <Col className='gutter-row' span={20}>
+            <Search />
+          </Col>
+          {/* <Col className='gutter-row' span={2} /> */}
+        </Row>
+        
+        <Row gutter={[16, 16]}>
+          <Col className='gutter-row' span={2} />
+          <Col className='gutter-row' span={20}>
+            <CardMovie />
+          </Col>
+          <Col className='gutter-row' span={2} />
+        </Row>
+      </div>
+)
+
+ReactDOM.render(<Index />, document.getElementById('root'))
