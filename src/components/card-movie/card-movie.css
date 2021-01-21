@@ -1,9 +1,36 @@
 .cardStyle {
   box-shadow: 2px 2px 2px rgb(197, 197, 197);
   max-height: 454px;
+  /* padding-top: 10px; */
   margin-bottom: 25px;
 }
 
+/* @media (min-width: 1024px) {
+  .cardStyle {
+    min-height: 374px;
+  }
+} */
+
 .overview {
   margin-bottom: 0;
+}
+
+.example {
+  text-align: center;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 30px 50px;
+  margin: 20px 0;
+}
+
+.ratingСircle {
+  border: 2px solid #e9d100;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  /* position: relative;
+  left: 3px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
