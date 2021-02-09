@@ -1,5 +1,12 @@
-.pagination {
-  /* display: flex;
-  justify-content: end; */
-  margin: 0 auto;
+.container,
+.search {
+  max-width: 420px;
+}
+
+@media (min-width: 420px) {
+  .container,
+  .search {
+    min-width: 420px;
+    max-width: 938px;
+  }
 }

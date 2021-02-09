@@ -1,59 +1,68 @@
-import React, { Component } from 'react';
-import { Row, Col, Pagination } from 'antd';
-import debounce from "lodash.debounce";
+import React, { useState, useEffect } from 'react';
+import { Pagination, Tabs, Row, Col } from 'antd';
+import debounce from 'lodash.debounce';
 import 'antd/dist/antd.css';
-import CardMovie from '../card-movie/card-movie';
-import Search from '../search/search';
+import CardMovie from '../card-movie/CardMovie';
+import RatedMovie from '../rated-movie/RatedMovie';
+import Search from '../search/Search';
+import GenresContext from '../context/context';
 
+import './app.css';
 
-export default class App extends Component {
+const App = () => {
+  const [valueFromInput, setValueFromInput] = useState('return');
+  const [page, setPage] = useState(1);
+  const [genres, setGenres] = useState([]);
 
-    state = {
-        valueFromInput: 'return',
-        page: 1
-    };
+  const { TabPane } = Tabs;
 
-    getDataFromInput = (event) => {
-        this.setState({
-            valueFromInput: event.target.value
-        })
-    }
+  function getDataFromInput(event) {
+    setValueFromInput(event.target.value);
+  }
 
-    changePage(num) {
-        this.setState({
-            page: num
-        })
-    }
+  function changePage(num) {
+    setPage(num);
+  }
 
-    render() {
+  function getGenres() {
+    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=b14771c0adfdc54f59204d41d5bf2302&language=en-US`)
+      .then((response) => response.json())
+      .then((data) => setGenres(data.genres));
+  }
 
-        const {valueFromInput, page} = this.state
+  useEffect(() => {
+    getGenres();
+  }, []);
 
-        return (
-            <div>   
-                <Row align="top" gutter={[24, 24]}>
-                <Col className='gutter-row' span={2} />
-                <Col className='gutter-row' span={20}>
-                    <Search getDataFromInput={debounce(this.getDataFromInput, 750)} />
-                </Col>
-                {/* <Col className='gutter-row' span={2} /> */}
-                </Row>
-                
-                <Row gutter={[16, 16]} justify='space-between'>
-                    <Col className='gutter-row' span={2} />
-                    <Col className='gutter-row' span={20}>
-                        <CardMovie 
-                            newFunc={this.getData}
-                            value={valueFromInput}
-                            page={page}
-                        />
-                    </Col>
-                    <Col className='gutter-row' span={2} />
-                    <Pagination onChange={elem => this.changePage(elem)} defaultCurrent={1} total={50} />
-                </Row>
+  return (
+    <GenresContext.Provider value={genres}>
+      <Row gutter={[16, 16]} justify="space-between">
+        <div className="container">
+          <Tabs defaultActiveKey="1" centered>
+            <TabPane tab="Search" key="1">
+              <Search className="search" getDataFromInput={debounce(getDataFromInput, 750)} />
 
-            </div>
-        )
-    }
-}
+              {/* <Col className="gutter-row" span={2} /> */}
+              {/* <Col className="gutter-row" xs={20} md={10}> */}
+              <CardMovie value={valueFromInput} page={page} />
+              {/* </Col> */}
+              <Col className="gutter-row" span={2} />
 
+              <Pagination
+                style={{ maxWidth: 420 }}
+                onChange={(elem) => changePage(elem)}
+                defaultCurrent={1}
+                total={50}
+              />
+            </TabPane>
+            <TabPane tab="Rated" key="2">
+              <RatedMovie />
+            </TabPane>
+          </Tabs>
+        </div>
+      </Row>
+    </GenresContext.Provider>
+  );
+};
+
+export default App;
