@@ -52,15 +52,15 @@ const CardMovie = ({ value, page }) => {
         method: 'POST',
         body: JSON.stringify({ value: rateFromCard }),
         headers: {
-          'Content-Type': 'application/json;charset=utf-8',
+          'Content-Type': 'application/json; charset=utf-8',
         },
       }
-    ).then((resp) => resp.json());
+    );
   }
 
-  useEffect(() => {
-    sendRate();
-  }, []);
+  // useEffect(() => {
+  //   sendRate();
+  // }, []);
 
   function shortText(longText, maxLength, postfix) {
     const pos = longText.indexOf(' ', maxLength);
@@ -73,7 +73,7 @@ const CardMovie = ({ value, page }) => {
     const image = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
     const originalTitle = shortText(movie.original_title, 23, '...');
     const date = format(new Date(movie.release_date), 'PP');
-    const overview = shortText(movie.overview, 90, '...');
+    const overview = shortText(movie.overview, 70, '...');
     const rating = movie.vote_average;
     const movieGenres = movie.genre_ids.slice(0, 2);
 
@@ -103,8 +103,8 @@ const CardMovie = ({ value, page }) => {
     const { Title, Text } = Typography;
 
     return (
-      <Col xs={24} md={11}>
-        <div className="cardStyle" key={originalTitle + Math.random() * 100}>
+      <Col xs={24} md={11} key={originalTitle + Math.random() * 100}>
+        <div className="cardStyle">
           <div className="imageStyle">
             <Image src={image} />
           </div>
@@ -149,7 +149,6 @@ const CardMovie = ({ value, page }) => {
 
   if (array.length === 0) return <Alert message="Movie not found" type="success" />;
 
-  // return <div className="container">{array.map((movie) => newCard(movie))}</div>;
   return (
     <div className="container">
       <Row justify="space-around">{array.map((movie) => newCard(movie))}</Row>

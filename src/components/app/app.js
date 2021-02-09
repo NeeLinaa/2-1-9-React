@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Pagination, Tabs, Row, Col } from 'antd';
+import { Pagination, Tabs } from 'antd';
 import debounce from 'lodash.debounce';
 import 'antd/dist/antd.css';
 import CardMovie from '../card-movie/CardMovie';
@@ -36,31 +36,22 @@ const App = () => {
 
   return (
     <GenresContext.Provider value={genres}>
-      <Row gutter={[16, 16]} justify="space-between">
-        <div className="container">
-          <Tabs defaultActiveKey="1" centered>
-            <TabPane tab="Search" key="1">
-              <Search className="search" getDataFromInput={debounce(getDataFromInput, 750)} />
+      {/* <Row gutter={[16, 16]} justify="space-between"> */}
+      <div className="container">
+        <Tabs defaultActiveKey="1" centered>
+          <TabPane tab="Search" key="1">
+            <Search className="search" getDataFromInput={debounce(getDataFromInput, 750)} />
 
-              {/* <Col className="gutter-row" span={2} /> */}
-              {/* <Col className="gutter-row" xs={20} md={10}> */}
-              <CardMovie value={valueFromInput} page={page} />
-              {/* </Col> */}
-              <Col className="gutter-row" span={2} />
+            <CardMovie value={valueFromInput} page={page} />
 
-              <Pagination
-                style={{ maxWidth: 420 }}
-                onChange={(elem) => changePage(elem)}
-                defaultCurrent={1}
-                total={50}
-              />
-            </TabPane>
-            <TabPane tab="Rated" key="2">
-              <RatedMovie />
-            </TabPane>
-          </Tabs>
-        </div>
-      </Row>
+            <Pagination style={{ maxWidth: 420 }} onChange={(elem) => changePage(elem)} defaultCurrent={1} total={50} />
+          </TabPane>
+          <TabPane tab="Rated" key="2">
+            <RatedMovie />
+          </TabPane>
+        </Tabs>
+      </div>
+      {/* </Row> */}
     </GenresContext.Provider>
   );
 };

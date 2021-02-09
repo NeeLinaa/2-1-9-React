@@ -1,17 +1,16 @@
 .cardStyle {
   box-shadow: 2px 2px 2px rgb(197, 197, 197);
   max-width: 387px;
-  max-height: 245px;
   margin: 20px auto 25px;
   padding: 10px;
   display: flex;
   justify-content: center;
 }
 
-@media screen and (min-width: 420px) {
+@media screen and (min-width: 768px) {
   .cardStyle {
     max-width: 450px;
-    max-height: 281px;
+    max-height: 300px;
   }
 }
 
@@ -21,7 +20,7 @@
   margin-right: 20px;
 }
 
-@media screen and (min-width: 420px) {
+@media screen and (min-width: 768px) {
   .imageStyle {
     max-width: 170px;
     min-height: 281px;
@@ -44,7 +43,7 @@
   right: 80px;
 }
 
-@media (min-width: 420px) {
+@media (min-width: 768px) {
   .overview {
     position: relative;
     right: 0;
